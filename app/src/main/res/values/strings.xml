@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DengueHotspot</string>
+    <string name="title_activity_dengue_case">Map</string>
+    <string name="title_activity_history__mode">Map</string>
+</resources>
