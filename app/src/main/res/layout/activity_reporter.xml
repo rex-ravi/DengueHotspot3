@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:text=""
+        android:inputType="numberDecimal"
         android:hint="Enter your age"
         tools:layout_editor_absoluteX="34dp"
         tools:layout_editor_absoluteY="97dp"
@@ -61,6 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button"
+        android:visibility="invisible"
         android:text="setting"
         />
 

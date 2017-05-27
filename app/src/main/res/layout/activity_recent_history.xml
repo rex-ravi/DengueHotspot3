@@ -34,8 +34,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/dengue"
         android:hint="Enter the area"
+        android:inputType="textCapSentences"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="" />
 
 
