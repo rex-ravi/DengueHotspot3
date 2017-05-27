@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ray.denguehotspot.recentHistory">
+
+    <Button
+        android:id="@+id/dengue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:onClick="deng"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="53dp"
+        android:text="Recent Dengue Case" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dengue"
+        android:layout_below="@+id/dengue"
+        android:layout_marginTop="87dp"
+        android:onClick="deng2"
+        android:text="Historical Dengue Case" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/dengue"
+        android:hint="Enter the area"
+        android:inputType="textCapSentences"
+        android:ems="10"
+        android:text="" />
+
+
+
+</RelativeLayout>
