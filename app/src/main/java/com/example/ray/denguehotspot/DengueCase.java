@@ -1,27 +1,28 @@
 package com.example.ray.denguehotspot;
 
-        import android.support.v4.app.FragmentActivity;
-        import android.os.Bundle;
-        import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.widget.Toast;
 //god promise
-        import java.text.DateFormat;
-        import java.text.ParseException;
-        import java.text.SimpleDateFormat;
-        import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
-        import com.google.android.gms.maps.CameraUpdateFactory;
-        import com.google.android.gms.maps.GoogleMap;
-        import com.google.android.gms.maps.OnMapReadyCallback;
-        import com.google.android.gms.maps.SupportMapFragment;
-        import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class DengueCase extends FragmentActivity implements OnMapReadyCallback {
 
@@ -36,6 +37,7 @@ public class DengueCase extends FragmentActivity implements OnMapReadyCallback {
     String test="b",testt="a";
     String testtt="g",testttt;
     String difff="a";
+    String fund2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,11 @@ public class DengueCase extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
         json_string = getIntent().getExtras().getString("json_data");
         fund= (String) getIntent().getExtras().get("ok");
-
-
+        fund2=fund.toLowerCase();
+        fund2 = fund2.replaceAll("\\s+", "");
         try {
 
-            SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
 
 
@@ -95,31 +97,40 @@ public class DengueCase extends FragmentActivity implements OnMapReadyCallback {
 
                 Date convertedDate = null;
                 try {
+                   // SimpleDateFormat readFormat = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault());
                     SimpleDateFormat readFormat = new SimpleDateFormat( "yyyy-MM-dd", java.util.Locale.getDefault());
-                   // SimpleDateFormat writeFormat = new SimpleDateFormat( "dd MMM, yyyy", java.util.Locale.getDefault());
+                     SimpleDateFormat writeFormat = new SimpleDateFormat( "dd MMM, yyyy", java.util.Locale.getDefault());
 
                     convertedDate = readFormat.parse( datee );
                     u=convertedDate.getTime();
-                    test=Long.toString(u);
+                   //s test=Long.toString(u);
                     // String formattedDate = writeFormat.format( convertedDate );
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 //difference between current and database date in long
-                  diff=g-u;
 
-                if((addd.contains(fund))&&(g>diff)&&(diff<=864000000))
-                {
+
+
+                if (addd.length() <= 1) {
+                    addd = addd.toLowerCase();
+                } else {
+                    addd = addd.toLowerCase();
+                    addd = addd.replaceAll("\\s+", "");
+                    diff=g-u;
+
+                    if((addd.contains(fund2))&&(g>diff)&&(diff<=864000000))
+                    {
 
                         LatLng sydney = new LatLng(a, b);
-                        mMap.addMarker(new MarkerOptions().position(sydney).title(addd));
+                        mMap.addMarker(new MarkerOptions().position(sydney).title(datee));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-                }}} catch (JSONException e1) {
+                    }
+            }}} catch (JSONException e1) {
             e1.printStackTrace();
         }
 
 
     }
 }
-

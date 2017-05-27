@@ -13,25 +13,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class history_Mode extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     String json_string;
-    String fund;
+    String fund,fund2;
     String datee="k";
     String latitudee="a",longg="b",addd="d";
-    double a=0.0,b=0.0;
-    long u=12345,g=12345,diff=12345;
-    String kanaa="a";
-    String test="b",testt="a";
-    String testtt="g",testttt;
-    String difff="a";
-
+    double a,b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,60 +52,40 @@ public class history_Mode extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         json_string = getIntent().getExtras().getString("json_data");
         fund= (String) getIntent().getExtras().get("ok");
-
-
+        fund2=fund.toLowerCase();
+        fund2 = fund2.replaceAll("\\s+", "");
         try {
-
-           // SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
-
-
 
             JSONObject parentobject = new JSONObject(json_string);
             JSONArray parentarray = parentobject.getJSONArray("server_response");
-
-            //  Date date=formatter.parse(datee);
-            //f=date.getTime();
-            Date currentDate=new Date();
-            g=currentDate.getTime();//Current date
-            // testt=Long.toString(g);//Current date into string for testing pp
-
 
             for (int i = 0; i < parentarray.length(); i++) {
                 JSONObject finalobject = parentarray.getJSONObject(i);
                 latitudee = finalobject.getString("latitude");
                 longg = finalobject.getString("longitude");
                 addd = finalobject.getString("address");
-               // datee=finalobject.getString("date");
+                datee=finalobject.getString("date");
 
-                //}
+
 
                 a = Double.parseDouble(latitudee);//Crash problem solved
                 b = Double.parseDouble(longg);
 
 
-               // Date convertedDate = null;
-               // try {
-                 //   SimpleDateFormat readFormat = new SimpleDateFormat( "yyyy-MM-dd", java.util.Locale.getDefault());
-                    // SimpleDateFormat writeFormat = new SimpleDateFormat( "dd MMM, yyyy", java.util.Locale.getDefault());
+                if (addd.length() <= 1) {
+                    addd = addd.toLowerCase();}
+                else {
+                    addd =addd.toLowerCase();
+                    addd = addd.replaceAll("\\s+", "");
 
-                   // convertedDate = readFormat.parse( datee );
-                    //u=convertedDate.getTime();
-                    //test=Long.toString(u);
-                    // String formattedDate = writeFormat.format( convertedDate );
-                //} catch (ParseException e) {
-                  //  e.printStackTrace();
-                //}
-//difference between current and database date in long
-               // diff=g-u;
+                    if((addd.contains(fund2)))
+                    {
 
-                if((addd.contains(fund)))
-                {
+                        LatLng sydney = new LatLng(a, b);
+                        mMap.addMarker(new MarkerOptions().position(sydney).title(datee));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-                    LatLng sydney = new LatLng(a, b);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title(addd));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-                }}} catch (JSONException e1) {
+                    }}}} catch (JSONException e1) {
             e1.printStackTrace();
         }
 

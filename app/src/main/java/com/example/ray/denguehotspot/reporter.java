@@ -210,15 +210,40 @@ public class reporter extends AppCompatActivity implements GoogleApiClient.Conne
     }
 
     public void save(View view) {
+        //
+        Object c1[];
+               // []=new Object[9];
+
+        //
         Name=name.getText().toString();
         Age=age.getText().toString();
         Email=email.getText().toString();
+        //newwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(Email);
+if(m.matches()==true){
+
         a = Double.toString(myLatitude);
         b = Double.toString(myLongitude);
-        c= String.valueOf(addresses.get(0));
+
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+
+        String state = addresses.get(0).getAdminArea();
+
+        String knownName = addresses.get(0).getAddressLine(1);
+
+        String knownName1 = addresses.get(0).getAddressLine(2);
+
+        c = address+" "+knownName+" "+knownName1;
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute(Name,Age,Email,a, b,c);
-        finish();
+        finish();}
+        else{
+    Toast.makeText(getApplicationContext(), "Email is incorrect", Toast.LENGTH_LONG).show();
+
+}
 
     }
 
@@ -246,32 +271,32 @@ public class reporter extends AppCompatActivity implements GoogleApiClient.Conne
 
             try {
                 // if(name>0 && email>0){
-               // if (lattt > 1.0 && longgg > 1.0) {
-                    URL url = new URL(add_info_url);
-                    HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection();
-                    httpurlconnection.setRequestMethod("POST");
-                    httpurlconnection.setDoOutput(true);
-                    OutputStream outputstream = httpurlconnection.getOutputStream();
-                    BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(outputstream, "UTF-8"));
+                // if (lattt > 1.0 && longgg > 1.0) {
+                URL url = new URL(add_info_url);
+                HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection();
+                httpurlconnection.setRequestMethod("POST");
+                httpurlconnection.setDoOutput(true);
+                OutputStream outputstream = httpurlconnection.getOutputStream();
+                BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(outputstream, "UTF-8"));
 
-                    String data_string = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(namee), "UTF-8") + "&" +
-                            URLEncoder.encode("age", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(agee), "UTF-8") + "&" +
-                            URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(emaill), "UTF-8") + "&" +
-                            URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lattt), "UTF-8") + "&" +
-                            URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(longgg), "UTF-8") + "&" +
-                            URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode(reversecoder, "UTF-8");
-                    bufferedwriter.write(String.valueOf(data_string));
-                    bufferedwriter.flush();
-                    bufferedwriter.close();
-                    outputstream.close();
-                    InputStream inputstream = httpurlconnection.getInputStream();
-                    inputstream.close();
-                    httpurlconnection.disconnect();
+                String data_string = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(namee), "UTF-8") + "&" +
+                        URLEncoder.encode("age", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(agee), "UTF-8") + "&" +
+                        URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(emaill), "UTF-8") + "&" +
+                        URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lattt), "UTF-8") + "&" +
+                        URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(longgg), "UTF-8") + "&" +
+                        URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode(reversecoder, "UTF-8");
+                bufferedwriter.write(String.valueOf(data_string));
+                bufferedwriter.flush();
+                bufferedwriter.close();
+                outputstream.close();
+                InputStream inputstream = httpurlconnection.getInputStream();
+                inputstream.close();
+                httpurlconnection.disconnect();
 
-                    return "One row of data insert";
-               // } //else {
-                   // return "Please turn on your Application Location";
-               // }
+                return "One row of data insert";
+                // } //else {
+                // return "Please turn on your Application Location";
+                // }
 
             }
 
@@ -293,7 +318,7 @@ public class reporter extends AppCompatActivity implements GoogleApiClient.Conne
 
         @Override
         protected void onPostExecute (String result){
-           // String JSON_STRING=result;
+            // String JSON_STRING=result;
 
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
@@ -301,4 +326,3 @@ public class reporter extends AppCompatActivity implements GoogleApiClient.Conne
         }
     }
 }
-

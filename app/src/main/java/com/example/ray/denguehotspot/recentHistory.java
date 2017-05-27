@@ -23,7 +23,7 @@ public class recentHistory extends AppCompatActivity {
     Button recent,recent2;
     String json_string;
     String JSON_STRING;
-    String r;
+    String r,output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +42,11 @@ public class recentHistory extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Click again", Toast.LENGTH_SHORT).show();
         } else {
-           // Toast.makeText(getApplicationContext(),"Data agaya",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(),"Data agaya",Toast.LENGTH_SHORT).show();
 
 
             r = String.valueOf(editText.getText());//Mine
+
             Intent intent = new Intent(this,DengueCase.class );
             intent.putExtra("json_data", JSON_STRING);
             intent.putExtra("ok", r);
@@ -57,8 +58,8 @@ public class recentHistory extends AppCompatActivity {
 
     }
     public void deng2(View view) {
-        BackgroundTask backgroundTask2 = new BackgroundTask();
-        backgroundTask2.execute();
+        BackgroundTask2 backgroundTask = new BackgroundTask2();
+        backgroundTask.execute();
         if (JSON_STRING == null) {
 
             Toast.makeText(getApplicationContext(), "Click again", Toast.LENGTH_SHORT).show();
@@ -80,6 +81,7 @@ public class recentHistory extends AppCompatActivity {
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
         String json_url;
+        //String JSON_STRING;
 
         @Override
         protected void onPreExecute() {
@@ -128,6 +130,7 @@ public class recentHistory extends AppCompatActivity {
 
     class BackgroundTask2 extends AsyncTask<Void, Void, String> {
         String json_url;
+        //String JSON_STRING;
 
         @Override
         protected void onPreExecute() {

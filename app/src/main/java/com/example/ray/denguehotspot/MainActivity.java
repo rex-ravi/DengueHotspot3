@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
                                                              break;
                                                          case 1:
-                                                             Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+                                                             Toast.makeText(MainActivity.this, "Admin Login", Toast.LENGTH_SHORT).show();
                                                              Intent intentt=new Intent(MainActivity.this,Admin.class);
                                                              startActivity(intentt);
 
                                                              break;
                                                          case 2:
-                                                             Toast.makeText(MainActivity.this, "Notify button Clciked", Toast.LENGTH_SHORT).show();
+                                                             Toast.makeText(MainActivity.this, "View Advisory", Toast.LENGTH_SHORT).show();
                                                              Intent intenttt=new Intent(MainActivity.this,viewAdvisory.class);
                                                              startActivity(intenttt);
                                                              break;
